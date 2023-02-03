@@ -37,6 +37,8 @@ export const App: React.FC = (): React.ReactElement => {
             window.removeEventListener('resize', windowResize);
         };
     }, []);
+
+
     return (
         <div className="application-wrapper">
             <div className="app-content-wrapper">

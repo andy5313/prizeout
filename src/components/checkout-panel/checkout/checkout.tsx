@@ -13,7 +13,6 @@ import {
 import './checkout.less';
 import OptionBonus from './option-bonus';
 import { AppDispatch } from '../../../store';
-import { selectCheckoutValueId } from '../../../slices/checkout-slice';
 import { useDispatch } from 'react-redux';
 
 const CheckoutPanelView: React.FC = (): React.ReactElement => {
@@ -41,9 +40,9 @@ const CheckoutPanelView: React.FC = (): React.ReactElement => {
                                 <Button
                                     className="grid__item"
                                     size="small"
-                                    ariaLabel="dsads"
+                                    ariaLabel="Value Options"
                                     isSelected={option === currentValueOption}
-                                    text={(option.cost_in_cents / 100).toFixed(2)}
+                                    text={'$' + (option.cost_in_cents / 100).toFixed(2)}
                                     key={uuid_v4()}
                                     onClick={() => {
                                         handleClick(option);

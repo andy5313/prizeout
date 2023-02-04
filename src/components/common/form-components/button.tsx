@@ -14,6 +14,7 @@ interface ButtonProps {
     isInline?: boolean;
     isLink?: boolean;
     isLoading?: boolean;
+    isSelected?: boolean;
     onClick?: () => void;
     size?: string;
     text?: string;
@@ -30,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     isInline,
     isLink,
     isLoading,
+    isSelected,
     onClick,
     size,
     text,
@@ -43,6 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
         { 'button--link': isLink },
         { 'button--inline': isInline },
         { 'button--loading': isLoading },
+        { 'button--selected': isSelected },
         className,
     );
 
@@ -80,6 +83,7 @@ Button.propTypes = {
     isInline: PropTypes.bool,
     isLink: PropTypes.bool,
     isLoading: PropTypes.bool,
+    isSelected: PropTypes.bool,
     onClick: PropTypes.func,
     size: PropTypes.string,
     text: PropTypes.string,

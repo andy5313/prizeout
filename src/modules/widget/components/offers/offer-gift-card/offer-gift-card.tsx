@@ -12,7 +12,6 @@ interface OfferGiftCardProps {
 }
 
 export const OfferGiftCard: React.FC<OfferGiftCardProps> = ({ offer, onClickHandler }): React.ReactElement => {
-    //let activeOfferId;
     const currentOffer = useAppSelector(selectCurrentOffer);
     console.log(currentOffer);
     const currentOfferId = currentOffer?.giftcard_list[0].checkout_value_id;

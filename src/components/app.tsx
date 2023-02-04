@@ -38,7 +38,6 @@ export const App: React.FC = (): React.ReactElement => {
         };
     }, []);
 
-
     return (
         <div className="application-wrapper">
             <div className="app-content-wrapper">

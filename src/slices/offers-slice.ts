@@ -5,6 +5,7 @@ import { RootState } from '../store';
 export interface OffersState {
     offers?: PrizeoutOffers;
     currentOffer?: PrizeoutOffer;
+    currentValueOption?: PrizeoutOfferValueOptions;
 }
 
 // Define the initial state
@@ -688,7 +689,7 @@ export type PrizeoutOffer = {
     tag: string;
 };
 
-type PrizeoutOfferValueOptions = {
+export type PrizeoutOfferValueOptions = {
     checkout_value_id: string;
     cost_in_cents: number;
     display_bonus?: number;
@@ -707,13 +708,19 @@ export const offersSlice = createSlice({
         setCurrentOffer(state, action: PayloadAction<PrizeoutOffer>) {
             state.currentOffer = action.payload;
         },
+        setCurrentValueOption(state, action: PayloadAction<PrizeoutOfferValueOptions>) {
+            state.currentValueOption = action.payload;
+        },
     },
 });
 
 export const selectOffers = ({ offers }: RootState): PrizeoutOffers => offers.offers;
 
-export const { setCurrentOffer } = offersSlice.actions;
+export const { setCurrentOffer, setCurrentValueOption } = offersSlice.actions;
 
 export const selectCurrentOffer = ({ offers: { currentOffer } }: RootState): PrizeoutOffer => currentOffer;
+
+export const selectCurrentValueOption = ({ offers: { currentValueOption } }: RootState): PrizeoutOfferValueOptions =>
+    currentValueOption;
 
 export default offersSlice.reducer;

@@ -5,11 +5,13 @@ export interface CheckoutSlice {
     isCollapsedCheckoutPanelOpen: boolean;
     loading: boolean;
     view: ViewEnum;
+    checkoutValueId?: string;
 }
 
 export type ViewEnum = 'checkout' | 'checkout-confirmation';
 
 export const checkoutInitialState: CheckoutSlice = {
+    checkoutValueId: null,
     isCollapsedCheckoutPanelOpen: false,
     loading: false,
     view: 'checkout',
@@ -19,6 +21,9 @@ export const checkoutSlice = createSlice({
     initialState: checkoutInitialState,
     name: 'checkout',
     reducers: {
+        setCheckoutValueId(state, action: PayloadAction<string>) {
+            state.checkoutValueId = action.payload;
+        },
         setCheckoutView(state, action: PayloadAction<ViewEnum>) {
             state.view = action.payload;
         },
@@ -31,7 +36,10 @@ export const checkoutSlice = createSlice({
     },
 });
 
-export const { setCheckoutView, toggleIsCollapsedCheckoutPanelOpen, toggleIsLoading } = checkoutSlice.actions;
+export const { setCheckoutView, toggleIsCollapsedCheckoutPanelOpen, toggleIsLoading, setCheckoutValueId } =
+    checkoutSlice.actions;
+
+export const selectCheckoutValueId = ({ checkout: { checkoutValueId } }: RootState): string => checkoutValueId;
 
 export const selectLoading = ({ checkout: { loading } }: RootState): boolean => loading;
 

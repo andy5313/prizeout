@@ -30,7 +30,6 @@ const CheckoutPanelView: React.FC = (): React.ReactElement => {
         <section className="checkout">
             <div className="grid grid--top-bottom grid--stretch-top">
                 <div className="grid__item">
-                    <section className="checkout__brand">Display Gift Card Here</section>
                     {name && <GiftCard altText={name} imgUrl={image_url} name={name} />}
                     {giftcard_list && <h3>Select Redemption Value</h3>}
 
@@ -60,7 +59,12 @@ const CheckoutPanelView: React.FC = (): React.ReactElement => {
                 </div>
                 <div className="grid__item">
                     <section className="checkout__calculation">
-                        <CheckoutButton />
+                        <CheckoutButton
+                            checkout_value_id={checkout_value_id}
+                            cost_in_cents={cost_in_cents}
+                            name={name}
+                            value_in_cents={value_in_cents}
+                        />
                     </section>
                 </div>
             </div>

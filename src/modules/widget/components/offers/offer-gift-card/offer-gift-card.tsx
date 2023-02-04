@@ -13,7 +13,6 @@ interface OfferGiftCardProps {
 
 export const OfferGiftCard: React.FC<OfferGiftCardProps> = ({ offer, onClickHandler }): React.ReactElement => {
     const currentOffer = useAppSelector(selectCurrentOffer);
-    console.log(currentOffer);
     const currentOfferId = currentOffer?.giftcard_list[0].checkout_value_id;
     const firstGiftCard = offer.giftcard_list[0];
     const offerType = firstGiftCard.display_monetary_bonus ? 'monetary' : 'percentage';

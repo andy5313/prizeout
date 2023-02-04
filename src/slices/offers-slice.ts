@@ -690,11 +690,11 @@ export type PrizeoutOffer = {
 };
 
 export type PrizeoutOfferValueOptions = {
-    checkout_value_id: string;
-    cost_in_cents: number;
+    checkout_value_id?: string;
+    cost_in_cents?: number;
     display_bonus?: number;
     display_monetary_bonus?: number;
-    value_in_cents: number;
+    value_in_cents?: number;
 };
 
 type OffersRequest = {

@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Classnames from 'classnames';
-import { PrizeoutOffer, PrizeoutOfferSettings, setCurrentOffer } from '../../../../../slices/offers-slice';
+import {
+    PrizeoutOffer,
+    PrizeoutOfferSettings,
+    setCurrentOffer,
+    selectCurrentOffer,
+    setCurrentValueOption,
+} from '../../../../../slices/offers-slice';
 import { OfferGiftCard } from '../offer-gift-card/offer-gift-card';
 import { useAppSelector } from '../../../../../hooks';
 import { selectIsCheckoutPanelCollapsed } from '../../../../../slices/common-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../../store';
 import { toggleIsCollapsedCheckoutPanelOpen } from '../../../../../slices/checkout-slice';
-
 import './vertical-offers.less';
 
 interface OfferView {
@@ -17,9 +22,23 @@ interface OfferView {
 
 const VerticalOffers: React.FC<OfferView> = ({ offers, viewSettings }): React.ReactElement => {
     const isCheckoutPanelCollapsedView = useAppSelector(selectIsCheckoutPanelCollapsed);
+    const currentOffer = useAppSelector(selectCurrentOffer);
     const heading = viewSettings.title || 'Recommended for you';
     const classes: string = Classnames('vertical-offers');
     const dispatch = useDispatch<AppDispatch>();
+
+    //useEffect for clearing the value options box whenever the current offer changes
+    useEffect(() => {
+        dispatch(
+            setCurrentValueOption({
+                checkout_value_id: '',
+                cost_in_cents: null,
+                display_bonus: null,
+                display_monetary_bonus: null,
+                value_in_cents: null,
+            }),
+        );
+    }, [currentOffer]);
 
     const offerClickHandler = (offer: PrizeoutOffer) => {
         dispatch(setCurrentOffer(offer));

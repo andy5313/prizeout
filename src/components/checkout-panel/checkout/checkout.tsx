@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import checkoutPanelViewWrapper from '../view-wrapper';
 import CheckoutButton from './checkout-button';
 import { Button, GiftCard } from '../../common';
@@ -19,14 +19,9 @@ import { useDispatch } from 'react-redux';
 const CheckoutPanelView: React.FC = (): React.ReactElement => {
     const { name, image_url, giftcard_list } = useAppSelector(selectCurrentOffer) || {};
     const dispatch = useDispatch<AppDispatch>();
-    const checkoutValueId = useAppSelector(selectCheckoutValueId) || null;
+    const currentValueOption = useAppSelector(selectCurrentValueOption) || {};
     const { checkout_value_id, cost_in_cents, display_bonus, value_in_cents } =
         useAppSelector(selectCurrentValueOption) || {};
-    // const handleClick = (checkoutValueId: string) => {
-    //     dispatch(setCheckoutValueId(checkoutValueId));
-    //     console.log(checkoutValueId);
-    // }
-
     const handleClick = (valueOption: PrizeoutOfferValueOptions) => {
         dispatch(setCurrentValueOption(valueOption));
         console.log(valueOption);
@@ -38,32 +33,32 @@ const CheckoutPanelView: React.FC = (): React.ReactElement => {
                 <div className="grid__item">
                     <section className="checkout__brand">Display Gift Card Here</section>
                     {name && <GiftCard altText={name} imgUrl={image_url} name={name} />}
-                </div>
-                {giftcard_list && <h4>Select Redemption Value</h4>}
-                <div className="grid grid--four-columns">
-                    {giftcard_list &&
-                        giftcard_list.map((option) => (
-                            <Button
-                                className="grid__item"
-                                size="small"
-                                ariaLabel="dsads"
-                                isSelected={option.checkout_value_id === checkoutValueId}
-                                text={(option.cost_in_cents / 100).toFixed(2)}
-                                key={uuid_v4()}
-                                onClick={() => {
-                                    handleClick(option);
-                                }}
-                            />
-                        ))}
-                </div>
-                {checkout_value_id && (
-                    <OptionBonus
-                        redemptionVal={cost_in_cents / 100}
-                        bonus={display_bonus}
-                        totalVal={value_in_cents / 100}
-                    />
-                )}
+                    {giftcard_list && <h3>Select Redemption Value</h3>}
 
+                    <div className="grid grid--four-columns">
+                        {giftcard_list &&
+                            giftcard_list.map((option) => (
+                                <Button
+                                    className="grid__item"
+                                    size="small"
+                                    ariaLabel="dsads"
+                                    isSelected={option === currentValueOption}
+                                    text={(option.cost_in_cents / 100).toFixed(2)}
+                                    key={uuid_v4()}
+                                    onClick={() => {
+                                        handleClick(option);
+                                    }}
+                                />
+                            ))}
+                    </div>
+                    {checkout_value_id && (
+                        <OptionBonus
+                            redemptionVal={cost_in_cents / 100}
+                            bonus={display_bonus}
+                            totalVal={value_in_cents / 100}
+                        />
+                    )}
+                </div>
                 <div className="grid__item">
                     <section className="checkout__calculation">
                         <CheckoutButton />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import checkoutPanelViewWrapper from '../view-wrapper';
 import CheckoutButton from './checkout-button';
 import { Button, GiftCard } from '../../common';
@@ -23,7 +23,6 @@ const CheckoutPanelView: React.FC = (): React.ReactElement => {
         useAppSelector(selectCurrentValueOption) || {};
     const handleClick = (valueOption: PrizeoutOfferValueOptions) => {
         dispatch(setCurrentValueOption(valueOption));
-        console.log(valueOption);
     };
 
     return (
